@@ -10,7 +10,7 @@
 #  *History:
 #**********************************************************************************
 
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(gmac3dviewer LANGUAGES CXX)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -42,14 +42,15 @@ file(GLOB_RECURSE QML_SOURCES
     ${CMAKE_SOURCE_DIR}/src/qml/*.qml
     )
 ##### qt
-find_package(Qt5 COMPONENTS Core Quick Widgets REQUIRED)
-target_link_libraries(
-    ${PROJECT_NAME}
-    PRIVATE
-    Qt5::Core
-    Qt5::Quick
-    Qt5::Widgets
-    )
+option(USE_QT6 "Use Qt6 library" OFF)
+if(USE_QT6)
+    find_package(QT NAMES Qt6 REQUIRED)
+else()
+    find_package(QT NAMES Qt5 REQUIRED)
+endif()
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
+    Core Gui Quick Widgets
+)
 ##### osg
 if(MSVC)
     set(OSG_SDK_PATH "${CMAKE_SOURCE_DIR}/osgsdk/win64-msvc" CACHE PATH "OSG SDK Path")
@@ -66,7 +67,7 @@ if(MSVC)
         )
 else()
     find_package(
-        OpenSceneGraph 3.6.5 REQUIRED
+        OpenSceneGraph REQUIRED
         osg
         osgAnimation
         osgManipulator

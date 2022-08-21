@@ -4,15 +4,16 @@
 
 ## 依赖：
 
-C++14
+- C++14
 
-CMake大于3.14
+- CMake大于3.10
 
-Qt5.15
+- Qt5.15或Qt6 (Core Gui Quick Widgets)
 
-Windows平台（带sdk）：64位msvc2015/msvcvc2017/msvcvc2019
+- Windows平台（带sdk）：64位msvc2015/msvcvc2017/msvcvc2019
 
-Linux平台（无sdk）：osg3.6.5
+- Linux平台（无sdk）：osg3.6.5
+
 
 ## 如何编译：
 
