@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/FpsLabel.qml</file>
+        <file>qml/Scene3d.qml</file>
+        <file>qml/BusyPopup.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>qml/ErrorPopup.qml</file>
+        <file>qml/AnimationRect.qml</file>
+        <file>qml/FlyPathRect.qml</file>
+        <file>qml/TestPopup.qml</file>
+        <file>qml/MainFunctions.qml</file>
+        <file>qml/MainOsgControl.qml</file>
+        <file>qml/MainTest.qml</file>
+        <file>qml/MessagePopup.qml</file>
+    </qresource>
+</RCC>
