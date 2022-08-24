@@ -17,6 +17,7 @@
 #include <QFile>
 #include <QMessageBox>
 #include <QQmlApplicationEngine>
+#include <QQuickWindow>
 #include <QSharedMemory>
 
 static bool checkSingletonProcess(const QString& name)
@@ -45,6 +46,10 @@ static bool checkSingletonProcess(const QString& name)
 
 int main(int argc, char* argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_UseDesktopOpenGL);
+#if QT_VERSION_MAJOR >= 6
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+#endif
     QApplication app(argc, argv);
     if (!checkSingletonProcess("_gmac_3d_viewer_memorycheck")) {
         return -1;

@@ -209,12 +209,19 @@ void GOsgRenderItem::configFrameTimer()
         m_frameTimerId = this->startTimer(qRound(1000.0 / m_targetFpsRate), Qt::CoarseTimer);
     }
 }
-
+#if QT_VERSION_MAJOR >= 6
+void GOsgRenderItem::geometryChange(const QRectF& newGeometry, const QRectF& oldGeometry)
+{
+    QQuickItem::geometryChange(newGeometry, oldGeometry);
+    updateOsgSize(newGeometry.size());
+}
+#else
 void GOsgRenderItem::geometryChanged(const QRectF& newGeometry, const QRectF& oldGeometry)
 {
     QQuickItem::geometryChanged(newGeometry, oldGeometry);
     updateOsgSize(newGeometry.size());
 }
+#endif
 
 void GOsgRenderItem::mousePressEvent(QMouseEvent* event)
 {
@@ -226,7 +233,7 @@ void GOsgRenderItem::mousePressEvent(QMouseEvent* event)
     case Qt::LeftButton:
         button = 1;
         break;
-    case Qt::MidButton:
+    case Qt::MiddleButton:
         button = 2;
         break;
     case Qt::RightButton:
@@ -252,7 +259,7 @@ void GOsgRenderItem::mouseReleaseEvent(QMouseEvent* event)
     case Qt::LeftButton:
         button = 1;
         break;
-    case Qt::MidButton:
+    case Qt::MiddleButton:
         button = 2;
         break;
     case Qt::RightButton:
@@ -286,7 +293,7 @@ void GOsgRenderItem::mouseDoubleClickEvent(QMouseEvent* event)
     case Qt::LeftButton:
         button = 1;
         break;
-    case Qt::MidButton:
+    case Qt::MiddleButton:
         button = 2;
         break;
     case Qt::RightButton:
@@ -312,19 +319,19 @@ void GOsgRenderItem::touchEvent(QTouchEvent* event)
         osg::ref_ptr<osgGA::GUIEventAdapter> osg_event(NULL);
         for (const QTouchEvent::TouchPoint& touchPoint : touchPoints) {
             const QPointF& touchPos = touchPoint.pos();
-            if (touchPoint.state() == Qt::TouchPointPressed) {
+            if ((Qt::TouchPointState)touchPoint.state() == Qt::TouchPointPressed) {
                 if (!osg_event) {
                     osg_event = m_gw->getEventQueue()->touchBegan(touchPoint.id(), osgGA::GUIEventAdapter::TOUCH_BEGAN, touchPos.x(), touchPos.y());
                 } else {
                     osg_event->addTouchPoint(touchPoint.id(), osgGA::GUIEventAdapter::TOUCH_BEGAN, touchPos.x(), touchPos.y());
                 }
-            } else if (touchPoint.state() == Qt::TouchPointMoved) {
+            } else if ((Qt::TouchPointState)touchPoint.state() == Qt::TouchPointMoved) {
                 if (!osg_event) {
                     osg_event = m_gw->getEventQueue()->touchMoved(touchPoint.id(), osgGA::GUIEventAdapter::TOUCH_MOVED, touchPos.x(), touchPos.y());
                 } else {
                     osg_event->addTouchPoint(touchPoint.id(), osgGA::GUIEventAdapter::TOUCH_MOVED, touchPos.x(), touchPos.y());
                 }
-            } else if (touchPoint.state() == Qt::TouchPointReleased) {
+            } else if ((Qt::TouchPointState)touchPoint.state() == Qt::TouchPointReleased) {
                 if (!osg_event) {
                     osg_event = m_gw->getEventQueue()->touchEnded(touchPoint.id(), osgGA::GUIEventAdapter::TOUCH_ENDED, touchPos.x(), touchPos.y(), 1);
                 } else {

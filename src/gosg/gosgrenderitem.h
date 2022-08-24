@@ -44,7 +44,11 @@ public:
 
 protected:
     Renderer* createRenderer() const override;
+#if QT_VERSION_MAJOR >= 6
+    virtual void geometryChange(const QRectF& newGeometry, const QRectF& oldGeometry) override;
+#else
     virtual void geometryChanged(const QRectF& newGeometry, const QRectF& oldGeometry) override;
+#endif
     virtual void mousePressEvent(QMouseEvent* event) override;
     virtual void mouseReleaseEvent(QMouseEvent* event) override;
     virtual void mouseMoveEvent(QMouseEvent* event) override;

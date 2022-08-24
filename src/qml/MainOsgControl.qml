@@ -10,7 +10,7 @@
  *History:
  **********************************************************************************/
 
-import QtQuick 2.9
+import QtQuick 2.15
 import GOsg 1.0
 
 GOsgControl{

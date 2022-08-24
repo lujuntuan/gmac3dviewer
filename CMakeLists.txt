@@ -42,15 +42,8 @@ file(GLOB_RECURSE QML_SOURCES
     ${CMAKE_SOURCE_DIR}/src/qml/*.qml
     )
 ##### qt
-option(USE_QT6 "Use Qt6 library" OFF)
-if(USE_QT6)
-    find_package(QT NAMES Qt6 REQUIRED)
-else()
-    find_package(QT NAMES Qt5 REQUIRED)
-endif()
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS
-    Core Gui Quick Widgets
-)
+find_package(QT NAMES Qt6 Qt5 REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Quick Widgets)
 ##### osg
 if(MSVC)
     set(OSG_SDK_PATH "${CMAKE_SOURCE_DIR}/osgsdk/win64-msvc" CACHE PATH "OSG SDK Path")
@@ -83,6 +76,10 @@ endif()
 target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Widgets
     osg
     osgAnimation
     osgManipulator
