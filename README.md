@@ -12,7 +12,7 @@
 
 - Windows平台（带sdk）：64位msvc2015/msvcvc2017/msvcvc2019
 
-- Linux平台（无sdk）：osg3.6.5
+- Linux平台（无sdk）：osg3.6.5 and fbx
 
 
 ## 如何编译：
