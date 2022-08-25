@@ -33,6 +33,15 @@ add_executable(
     ${PROJECT_NAME}
     ${PROJECT_SOURCES}
     )
+if(WIN32)
+    set_property(
+        TARGET
+        ${PROJECT_NAME}
+        PROPERTY
+        WIN32_EXECUTABLE
+        true
+    )
+endif()
 target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
