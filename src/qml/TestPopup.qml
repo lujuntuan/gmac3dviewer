@@ -19,7 +19,7 @@ Popup{
     rightPadding: 20
     topPadding: 10
     bottomPadding: 10
-    width: titleLabel.width>grid.width?titleLabel.width:grid.width+padding*2
+    width: (titleLabel.width>grid.width?titleLabel.width:grid.width)+padding*2
     enter: Transition {
         ParallelAnimation{
             NumberAnimation {
